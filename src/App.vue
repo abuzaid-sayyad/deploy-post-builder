@@ -161,7 +161,6 @@ export default {
             .replace("image/png")
         );
         link.click();
-
         console.log("done");
       },
     }
