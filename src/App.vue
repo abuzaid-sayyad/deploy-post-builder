@@ -44,26 +44,28 @@
         </div>
         <div class="col-span-2">
           <label for="name">Enter Your Quote</label>
-          <editor v-model="content"></editor>
+          <editor v-model="content" class="h-32"></editor>
         </div>
       </div>
     </div>
     <div class="bg-blue-500 h-full flex items-center justify-center relative">
-      <div ref="printcontent" :class="'bg-white rounded-md p-8 w-96 h-96 ' +selectedFamily">
-        <div class="flex items-center">
-          <div>
-            <img class="rounded-full" :src="previewImage" width="75" height="75" alt="">
-          </div>
-          <div class="ml-2.5">
-            <div class="flex items-center">
-              <h2 class="text-xl font-semibold text-gray-900">{{name}}</h2>
-              <img class="ml-2.5" :src="selected_social_media" width="28" height="28" alt="">
+      <div ref="printcontent">
+          <div :class="'bg-white rounded-md p-8 w-96 h-96 ' +selectedFamily">
+          <div class="flex">
+            <div>
+              <img class="rounded-full" :src="previewImage" width="75" height="75" alt="">
             </div>
-            <p class="text-base font-medium text-gray-700">{{username}}</p>
+            <div class="ml-2.5">
+              <div class="flex">
+                <h2 class="text-xl font-semibold text-gray-900">{{name}}</h2>
+                <img class="ml-2.5" :src="selected_social_media" width="28" height="28" alt="">
+              </div>
+              <p class="text-base font-medium text-gray-700">{{username}}</p>
+            </div>
           </div>
-        </div>
-        <div class="mt-6">
-          <div v-html="content"></div>
+          <div class="mt-6">
+            <div v-html="content"></div>
+          </div>
         </div>
       </div>
       <div class="absolute bottom-40 left-0 w-full flex justify-center family-poppins">
@@ -95,6 +97,7 @@ export default {
         desc:'',
         selectedFamily:'',
         html2canvas:'',
+        scale:2,
         Family:[
           {family_name:'Poppins', family_value:'family-poppins'},
           {family_name:'Inter', family_value:'family-inter'},
@@ -134,26 +137,33 @@ export default {
         }
       },
       async printThis() {
-      console.log("printing..");
-      const el = this.$refs.printcontent;
+        console.log("printing..");
+        const el = this.$refs.printcontent;
 
-      const options = {
-        type: "dataURL",
-      };
-      const printCanvas = await html2canvas(el, options);
+        const options = {
+          type: "dataURL",
+        };
+        const printCanvas = await html2canvas(el, options);
 
-      const link = document.createElement("a");
-      link.setAttribute("download", "download.png");
-      link.setAttribute(
-        "href",
-        printCanvas
-          .toDataURL("image/png")
-          .replace("image/png", "image/octet-stream")
-      );
-      link.click();
+        // canvas = document.createElement('canvas');
+        // ctx = canvas.getContext('2d');
+        // canvas.width = 200*scale;
+        // canvas.height = 200*scale;
+        // tempImg = document.createElement('img');
 
-      console.log("done");
-    },
+        const link = document.createElement("a");
+        // const ctx = link.getContext('2d');
+        link.width = 200 * 100;
+        link.height = 200 * 100;
+        link.setAttribute("download", "download.png");
+        link.setAttribute("href", printCanvas
+            .toDataURL("image/png")
+            .replace("image/png")
+        );
+        link.click();
+
+        console.log("done");
+      },
     }
 }
 </script>

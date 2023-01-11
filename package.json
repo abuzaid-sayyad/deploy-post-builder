@@ -8,9 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.25",
     "@ckeditor/ckeditor5-vue": "^4.0.1",
-    "@tinymce/tinymce-vue": "^5.0.0"
+    "@tinymce/tinymce-vue": "^5.0.0",
+    "axios": "^0.27.2",
+    "vue": "^3.2.25"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
